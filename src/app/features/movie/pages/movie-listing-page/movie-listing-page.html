@@ -1,1 +1,8 @@
-<p>movie-listing-page works!</p>
+<ul>
+  @for(movie of movieList; track movie.id){
+  <li>
+    {{movie.id}} - {{movie.title}}
+    <img [src]="movie.img_url" alt="Affiche de {{movie.title}}" />
+  </li>
+  }
+</ul>
