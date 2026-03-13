@@ -1,8 +1,11 @@
 <ul>
   @for(movie of movieList; track movie.id){
-  <li>
+  <!-- <li>
     {{movie.id}} - {{movie.title}}
     <img [src]="movie.img_url" alt="Affiche de {{movie.title}}" />
+  </li> -->
+  <li>
+    <app-movie-card [movieInput]="movie" (likeEvent)="onLikeEvent($event)" />
   </li>
   }
 </ul>

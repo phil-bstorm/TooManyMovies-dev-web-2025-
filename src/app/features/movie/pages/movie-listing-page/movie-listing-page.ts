@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Movie } from '../../../../core/models/movie.interface';
+import { MovieCard } from '../../../../shared/components/movie-card/movie-card';
 
 @Component({
   selector: 'app-movie-listing-page',
-  imports: [],
+  imports: [MovieCard],
   templateUrl: './movie-listing-page.html',
   styleUrl: './movie-listing-page.scss',
 })
@@ -16,7 +17,7 @@ export class MovieListingPage {
       year: 2010,
       genre: 'Science-Fiction',
       img_url:
-        'https://image.tmdb.org/t/p/w500/9gk7Y9CqnM967STWzYjQZghzfs6.jpg',
+        'https://image.tmdb.org/t/p/w500/edv5CZvWj09upOsy2Y6IwDhK8bt.jpg',
     },
     {
       id: 2,
@@ -25,7 +26,7 @@ export class MovieListingPage {
       year: 1972,
       genre: 'Crime',
       img_url:
-        'https://image.tmdb.org/t/p/w500/rPdtO1oPbepxv97qNLCqSIs6vqc.jpg',
+        'https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsRolD1fZdja1.jpg',
     },
     {
       id: 3,
@@ -34,7 +35,7 @@ export class MovieListingPage {
       year: 1994,
       genre: 'Thriller',
       img_url:
-        'https://image.tmdb.org/t/p/w500/fIE3lA0Yp6G6S8S7S9mO696Zas6.jpg',
+        'https://image.tmdb.org/t/p/w500/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg',
     },
     {
       id: 4,
@@ -43,7 +44,7 @@ export class MovieListingPage {
       year: 2014,
       genre: 'Aventure',
       img_url:
-        'https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6vCU67xtiBP2l.jpg',
+        'https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg',
     },
     {
       id: 5,
@@ -52,7 +53,7 @@ export class MovieListingPage {
       year: 2019,
       genre: 'Drame',
       img_url:
-        'https://image.tmdb.org/t/p/w500/7S9s9v9vS6fL7vM0X3fM9S6XfL7.jpg',
+        'https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg',
     },
     {
       id: 6,
@@ -61,7 +62,7 @@ export class MovieListingPage {
       year: 1999,
       genre: 'Action',
       img_url:
-        'https://image.tmdb.org/t/p/w500/f89U3Y9Y9Xm9S6fL7vM0X3fM9S6.jpg',
+        'https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg',
     },
     {
       id: 7,
@@ -70,7 +71,7 @@ export class MovieListingPage {
       year: 2001,
       genre: 'Animation',
       img_url:
-        'https://image.tmdb.org/t/p/w500/39wmItS6vgynoIkiZpC7109vTzR.jpg',
+        'https://image.tmdb.org/t/p/w500/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg',
     },
     {
       id: 8,
@@ -78,7 +79,8 @@ export class MovieListingPage {
       director: 'David Fincher',
       year: 1999,
       genre: 'Drame',
-      img_url: 'https://image.tmdb.org/t/p/w500/pB8BM79vU7vM0X3fM9S6XfL7.jpg',
+      img_url:
+        'https://image.tmdb.org/t/p/w500/bptfVGEQuv6vDTIMVCHjJ9Dz8PX.jpg',
     },
     {
       id: 9,
@@ -87,7 +89,7 @@ export class MovieListingPage {
       year: 2000,
       genre: 'Action',
       img_url:
-        'https://image.tmdb.org/t/p/w500/ty8Tj9He86z5o7XfS6XfL7vM0X3.jpg',
+        'https://image.tmdb.org/t/p/w500/ty8TGRuvJLPUmAR1H1nRIsgwvim.jpg',
     },
     {
       id: 10,
@@ -96,7 +98,11 @@ export class MovieListingPage {
       year: 1993,
       genre: 'Histoire',
       img_url:
-        'https://image.tmdb.org/t/p/w500/sF1U4pTvuS6fL7vM0X3fM9S6XfL7.jpg',
+        'https://image.tmdb.org/t/p/w500/sF1U4EUQS8YHUYjNl3pMGNIQyr0.jpg',
     },
   ];
+
+  onLikeEvent(movieId: number) {
+    console.log('MovieListing onLikeEvent - ' + movieId);
+  }
 }

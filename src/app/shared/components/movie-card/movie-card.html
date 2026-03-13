@@ -1,0 +1,17 @@
+<article class="card">
+  <div class="card-inner">
+    <div class="card-front">
+      <img
+        [src]="movieInput().img_url"
+        alt="Affiche du film {{movieInput().title}}"
+      />
+    </div>
+
+    <div class="card-back">
+      <h2>{{movieInput().title}}</h2>
+      <p><strong>Année :</strong> {{movieInput().year}}</p>
+      <p>{{movieInput().genre}} - {{movieInput().director}}</p>
+      <button (click)="onLikeBtn()">😍</button>
+    </div>
+  </div>
+</article>
