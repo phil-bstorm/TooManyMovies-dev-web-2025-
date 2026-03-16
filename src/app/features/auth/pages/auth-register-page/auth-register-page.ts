@@ -5,8 +5,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { strongPasswordValidator } from '../../../../core/validators/strong-password.validator';
-import { FormsErrorDisplay } from '../../../../shared/components/forms-error-display/forms-error-display';
+import { strongPasswordValidator } from '@core/validators/strong-password.validator';
+import { FormsErrorDisplay } from '@shared/components/forms-error-display/forms-error-display';
 
 @Component({
   selector: 'app-auth-register-page',
