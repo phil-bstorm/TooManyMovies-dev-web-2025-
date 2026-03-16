@@ -1,5 +1,5 @@
 <ul>
-  @for(movie of movieList; track movie.id){
+  @for(movie of movies(); track movie.id){
   <!-- <li>
     {{movie.id}} - {{movie.title}}
     <img [src]="movie.img_url" alt="Affiche de {{movie.title}}" />

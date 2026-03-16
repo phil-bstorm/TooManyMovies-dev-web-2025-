@@ -11,7 +11,9 @@
       <h2>{{movieInput().title}}</h2>
       <p><strong>Année :</strong> {{movieInput().year}}</p>
       <p>{{movieInput().genre}} - {{movieInput().director}}</p>
-      <button (click)="onLikeBtn()">😍</button>
+      <button (click)="onLikeBtn()">
+        {{ movieInput().isLiked ? "🖤" : "♥️"}}
+      </button>
     </div>
   </div>
 </article>

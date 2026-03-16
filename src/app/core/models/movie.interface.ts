@@ -5,4 +5,5 @@ export interface Movie {
   year: number;
   genre: string;
   img_url: string;
+  isLiked?: boolean;
 }
