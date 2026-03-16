@@ -1,1 +1,23 @@
-<p>auth-register-page works!</p>
+<form [formGroup]="formRegister" (ngSubmit)="onSubmitRegister()">
+  <div>
+    <label for="firstname-input">Firstname:</label>
+    <input type="text" id="firstname-input" formControlName="firstName" />
+    <app-forms-error-display [control]="firstName" name="firstName" />
+  </div>
+  <div>
+    <label for="lastname-input">Lastname:</label>
+    <input type="text" id="lastname-input" formControlName="lastName" />
+    <app-forms-error-display [control]="lastName" name="lastName" />
+  </div>
+  <div>
+    <label for="email-input">Email:</label>
+    <input type="email" id="email-input" formControlName="email" />
+    <app-forms-error-display [control]="email" name="email" />
+  </div>
+  <div>
+    <label for="password-input">Password:</label>
+    <input type="password" id="password-input" formControlName="password" />
+    <app-forms-error-display [control]="password" name="password" />
+  </div>
+  <button type="submit" [disabled]="!formRegister.invalid">Signup</button>
+</form>
