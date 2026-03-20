@@ -14,6 +14,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'movie/:id',
+    loadComponent: () =>
+      import('./features/movie/pages/movie-details-page/movie-details-page').then(
+        (c) => c.MovieDetailsPage,
+      ),
+  },
+  {
     path: 'auth',
     loadChildren: () =>
       import('./features/auth/auth.router').then((r) => r.routes),
