@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { MovieListingPage } from './features/movie/pages/movie-listing-page/movie-listing-page';
 import { connectedGuard } from '@core/guards/connected.guard';
 import { adminGuard } from '@core/guards/admin.guard';
+import { Error404Page } from './features/errors/pages/error-404-page/error-404-page';
 
 export const routes: Routes = [
   {
@@ -33,5 +34,9 @@ export const routes: Routes = [
     canActivate: [connectedGuard],
     loadChildren: () =>
       import('./features/user/user.routes').then((r) => r.routes),
+  },
+  {
+    path: '**',
+    component: Error404Page,
   },
 ];
