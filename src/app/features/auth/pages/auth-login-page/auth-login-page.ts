@@ -5,9 +5,8 @@ import {
   FormControl,
   ReactiveFormsModule,
   Validators,
-  ɵInternalFormsSharedModule,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsErrorDisplay } from '@shared/components/forms-error-display/forms-error-display';
 
 @Component({
@@ -18,6 +17,7 @@ import { FormsErrorDisplay } from '@shared/components/forms-error-display/forms-
 })
 export class AuthLoginPage {
   private readonly _fb = inject(FormBuilder);
+  private readonly _router = inject(Router);
 
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required]);
@@ -32,6 +32,7 @@ export class AuthLoginPage {
 
     if (this.formLogin.valid) {
       console.log(this.formLogin.value);
+      this._router.navigate(['/']);
     }
   }
 }

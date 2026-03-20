@@ -5,6 +5,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { strongPasswordValidator } from '@core/validators/strong-password.validator';
 import { FormsErrorDisplay } from '@shared/components/forms-error-display/forms-error-display';
 
@@ -16,6 +17,7 @@ import { FormsErrorDisplay } from '@shared/components/forms-error-display/forms-
 })
 export class AuthRegisterPage {
   private readonly _fb = inject(FormBuilder);
+  private readonly _router = inject(Router);
 
   firstName = new FormControl('', [
     Validators.required,
@@ -48,6 +50,8 @@ export class AuthRegisterPage {
     if (this.formRegister.valid) {
       console.log('Formulaire valide');
       console.log(this.formRegister.value);
+
+      this._router.navigate(['/', 'auth', 'login']);
     }
   }
 }
