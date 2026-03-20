@@ -20,19 +20,24 @@
           "skipTests": true
         },
         "@schematics/angular:guard": {
-          "skipTests": true
+          "skipTests": true,
+          "typeSeparator": "."
         },
         "@schematics/angular:interceptor": {
-          "skipTests": true
+          "skipTests": true,
+          "typeSeparator": "."
         },
         "@schematics/angular:pipe": {
-          "skipTests": true
+          "skipTests": true,
+          "typeSeparator": "."
         },
         "@schematics/angular:resolver": {
-          "skipTests": true
+          "skipTests": true,
+          "typeSeparator": "."
         },
         "@schematics/angular:service": {
-          "skipTests": true
+          "skipTests": true,
+          "type": "service"
         }
       },
       "root": "",

@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { MovieListingPage } from './features/movie/pages/movie-listing-page/movie-listing-page';
+import { connectedGuard } from '@core/guards/connected.guard';
+import { adminGuard } from '@core/guards/admin.guard';
 
 export const routes: Routes = [
   {
@@ -8,6 +10,7 @@ export const routes: Routes = [
   },
   {
     path: 'movie/add',
+    canActivate: [adminGuard],
     loadComponent: () =>
       import('./features/movie/pages/movie-add-page/movie-add-page').then(
         (c) => c.MovieAddPage,
@@ -24,5 +27,11 @@ export const routes: Routes = [
     path: 'auth',
     loadChildren: () =>
       import('./features/auth/auth.router').then((r) => r.routes),
+  },
+  {
+    path: 'user',
+    canActivate: [connectedGuard],
+    loadChildren: () =>
+      import('./features/user/user.routes').then((r) => r.routes),
   },
 ];

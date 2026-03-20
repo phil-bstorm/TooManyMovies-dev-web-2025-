@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '@core/services/auth.service';
 import { FormsErrorDisplay } from '@shared/components/forms-error-display/forms-error-display';
 
 @Component({
@@ -18,6 +19,7 @@ import { FormsErrorDisplay } from '@shared/components/forms-error-display/forms-
 export class AuthLoginPage {
   private readonly _fb = inject(FormBuilder);
   private readonly _router = inject(Router);
+  private readonly _authService = inject(AuthService);
 
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required]);
@@ -32,6 +34,11 @@ export class AuthLoginPage {
 
     if (this.formLogin.valid) {
       console.log(this.formLogin.value);
+      this._authService.login(
+        this.formLogin.value.email!,
+        this.formLogin.value.password!,
+      );
+
       this._router.navigate(['/']);
     }
   }
