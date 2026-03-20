@@ -1,3 +1,9 @@
+<div>
+  <label for="title-search-input"> Title: </label>
+  <input type="text" id="title-search-input" [(ngModel)]="movieTitleSearch" />
+  <button (click)="onClickSearch()">Seach</button>
+</div>
+
 <ul>
   @for(movie of movies(); track movie.id){
   <!-- <li>
