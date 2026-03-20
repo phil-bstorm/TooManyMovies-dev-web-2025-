@@ -1,1 +1,24 @@
-<p>auth-login-page works!</p>
+<form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="email-input">Email:</label>
+    <input
+      type="email"
+      id="email-input"
+      formControlName="email"
+      [ngClass]="{'input-error': email.invalid && email.touched}"
+    />
+    <app-forms-error-display [control]="email" name="Email" />
+  </div>
+  <div>
+    <label for="password-input">Password:</label>
+    <input
+      type="password"
+      id="password-input"
+      formControlName="password"
+      [ngClass]="{'input-error': password.invalid && password.touched}"
+    />
+    <app-forms-error-display [control]="password" name="Password" />
+  </div>
+  <button type="submit" [disabled]="formLogin.invalid">Login</button>
+</form>
+<a routerLink="/auth/register">Do you want to create an account?</a>
