@@ -6,6 +6,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RegisterData } from '@core/models/auth.interface';
+import { AuthService } from '@core/services/auth.service';
 import { strongPasswordValidator } from '@core/validators/strong-password.validator';
 import { FormsErrorDisplay } from '@shared/components/forms-error-display/forms-error-display';
 
@@ -18,6 +20,7 @@ import { FormsErrorDisplay } from '@shared/components/forms-error-display/forms-
 export class AuthRegisterPage {
   private readonly _fb = inject(FormBuilder);
   private readonly _router = inject(Router);
+  private readonly _authService = inject(AuthService);
 
   firstName = new FormControl('', [
     Validators.required,
@@ -51,7 +54,15 @@ export class AuthRegisterPage {
       console.log('Formulaire valide');
       console.log(this.formRegister.value);
 
-      this._router.navigate(['/', 'auth', 'login']);
+      const data: RegisterData = {
+        email: this.formRegister.value.email!,
+        password: this.formRegister.value.password!,
+        firstname: this.formRegister.value.firstName!,
+        lastname: this.formRegister.value.lastName!,
+      };
+      this._authService.register(data).then(() => {
+        this._router.navigate(['/', 'auth', 'login']);
+      });
     }
   }
 }

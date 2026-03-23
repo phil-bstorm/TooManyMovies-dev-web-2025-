@@ -1,7 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { UserRole } from '@core/enums/user-role.enum';
-import { JwtDecoded, LoginResponse } from '@core/models/auth.interface';
+import {
+  JwtDecoded,
+  LoginResponse,
+  RegisterData,
+} from '@core/models/auth.interface';
 import { jwtDecode } from 'jwt-decode';
 import { firstValueFrom } from 'rxjs';
 
@@ -30,6 +34,14 @@ export class AuthService {
 
     const decoded = jwtDecode<JwtDecoded>(response.accessToken);
 
-    this.role.set(decoded.role as UserRole);
+    console.log(decoded);
+
+    this.role.set((decoded.role as UserRole) ?? UserRole.User);
+  }
+
+  async register(userData: RegisterData): Promise<void> {
+    await firstValueFrom(
+      this._httpClient.post('http://localhost:3000/register', userData),
+    );
   }
 }

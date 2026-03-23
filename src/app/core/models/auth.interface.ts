@@ -7,3 +7,10 @@ export interface LoginResponse {
 export interface JwtDecoded extends JwtPayload {
   role: string;
 }
+
+export interface RegisterData {
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+}
