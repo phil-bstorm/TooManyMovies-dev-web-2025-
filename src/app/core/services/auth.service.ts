@@ -1,19 +1,35 @@
-import { Injectable, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable, signal } from '@angular/core';
 import { UserRole } from '@core/enums/user-role.enum';
+import { JwtDecoded, LoginResponse } from '@core/models/auth.interface';
+import { jwtDecode } from 'jwt-decode';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private readonly _httpClient = inject(HttpClient);
+
   authToken = signal<string>('');
   role = signal<UserRole | null>(null);
 
-  login(email: string, password: string) {
-    // TODO appel API
-    this.authToken.set('JeNaiPasEncoreConnecteLAPI');
+  async login(email: string, password: string): Promise<void> {
+    // appel API
+    const response = await firstValueFrom(
+      this._httpClient.post<LoginResponse>('http://localhost:3000/login', {
+        email: email,
+        password: password,
+      }),
+    );
 
-    // TODO Décodage du token
+    this.authToken.set(response.accessToken);
+
+    // Décodage du token
     // pour récuperer le userId et role du user
-    this.role.set(UserRole.User);
+
+    const decoded = jwtDecode<JwtDecoded>(response.accessToken);
+
+    this.role.set(decoded.role as UserRole);
   }
 }
