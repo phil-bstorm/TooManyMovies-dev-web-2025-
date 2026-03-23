@@ -18,6 +18,24 @@ export class AuthService {
   authToken = signal<string>('');
   role = signal<UserRole | null>(null);
 
+  constructor() {
+    const localToken = localStorage.getItem('token');
+    if (localToken) {
+      const decoded = jwtDecode<JwtDecoded>(localToken);
+
+      // si mon token n'est pas expiré (exp), je place dans le signal,
+      // sinon je le supprime du localstorage
+      if (decoded.exp && decoded.exp * 1000 > Date.now()) {
+        this.authToken.set(localToken);
+        this.role.set((decoded.role as UserRole) ?? UserRole.User);
+      } else {
+        console.log('Remove token');
+
+        // localStorage.removeItem('token');
+      }
+    }
+  }
+
   async login(email: string, password: string): Promise<void> {
     // appel API
     const response = await firstValueFrom(
@@ -28,6 +46,7 @@ export class AuthService {
     );
 
     this.authToken.set(response.accessToken);
+    localStorage.setItem('token', response.accessToken);
 
     // Décodage du token
     // pour récuperer le userId et role du user
@@ -43,5 +62,11 @@ export class AuthService {
     await firstValueFrom(
       this._httpClient.post('http://localhost:3000/register', userData),
     );
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.authToken.set('');
+    this.role.set(null);
   }
 }

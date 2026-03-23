@@ -7,7 +7,7 @@
     <li><a routerLink="auth/login">Login</a></li>
     <li><a routerLink="auth/register">Register</a></li>
     }@else {
-    <li><button>Logout</button></li>
+    <li><button (click)="onLogoutBtn()">Logout</button></li>
     }
   </ul>
 </nav>

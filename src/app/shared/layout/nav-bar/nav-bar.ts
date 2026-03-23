@@ -14,4 +14,8 @@ export class NavBar {
   private readonly _authService = inject(AuthService);
 
   role = this._authService.role;
+
+  onLogoutBtn() {
+    this._authService.logout();
+  }
 }
