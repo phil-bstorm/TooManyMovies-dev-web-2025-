@@ -34,12 +34,14 @@ export class AuthLoginPage {
 
     if (this.formLogin.valid) {
       console.log(this.formLogin.value);
-      this._authService.login(
-        this.formLogin.value.email!,
-        this.formLogin.value.password!,
-      );
-
-      this._router.navigate(['/']);
+      this._authService
+        .login(this.formLogin.value.email!, this.formLogin.value.password!)
+        .then(() => {
+          this._router.navigate(['/']);
+        })
+        .catch((err: Error) => {
+          console.log('auth login', err);
+        });
     }
   }
 }
