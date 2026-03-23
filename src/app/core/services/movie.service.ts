@@ -1,5 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { Movie } from '../models/movie.interface';
+import { Movie, NewMovie } from '../models/movie.interface';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom, Observable } from 'rxjs';
 
@@ -26,6 +26,12 @@ export class MovieService {
   getMoviesPromise(): Promise<Array<Movie>> {
     return firstValueFrom(
       this._httpClient.get<Array<Movie>>('http://localhost:3000/movies'),
+    );
+  }
+
+  addMovie(movieData: NewMovie): Promise<Movie> {
+    return firstValueFrom(
+      this._httpClient.post<Movie>('http://localhost:3000/movies', movieData),
     );
   }
 }

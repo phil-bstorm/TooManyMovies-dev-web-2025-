@@ -1,1 +1,33 @@
-<p>movie-add-page works!</p>
+<form [formGroup]="addMovieForm" (ngSubmit)="addMovie()">
+  <div>
+    <label for="title">Title</label>
+    <input type="text" id="title" formControlName="title" />
+    <app-forms-error-display [control]="title" name="Title" />
+  </div>
+
+  <div>
+    <label for="director">Director</label>
+    <input type="text" id="director" formControlName="director" />
+    <app-forms-error-display [control]="director" name="Director" />
+  </div>
+
+  <div>
+    <label for="year">Year</label>
+    <input type="number" id="year" formControlName="year" />
+    <app-forms-error-display [control]="year" name="Year" />
+  </div>
+
+  <div>
+    <label for="genre">Genre</label>
+    <input type="text" id="genre" formControlName="genre" />
+    <app-forms-error-display [control]="genre" name="Genre" />
+  </div>
+
+  <div>
+    <label for="img_url">Image URL</label>
+    <input type="text" id="img_url" formControlName="img_url" />
+    <app-forms-error-display [control]="img_url" name="Image URL" />
+  </div>
+
+  <button type="submit">Add Movie</button>
+</form>

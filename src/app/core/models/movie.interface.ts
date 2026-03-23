@@ -7,3 +7,5 @@ export interface Movie {
   img_url: string;
   isLiked?: boolean;
 }
+
+export interface NewMovie extends Omit<Movie, 'id'> {}
