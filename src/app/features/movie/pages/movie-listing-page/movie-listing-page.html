@@ -4,6 +4,7 @@
   <button (click)="onClickSearch()">Seach</button>
 </div>
 
+@if(movies().length){
 <ul>
   @for(movie of movies(); track movie.id){
   <!-- <li>
@@ -15,3 +16,8 @@
   </li>
   }
 </ul>
+} @if(!movies().length && !moviesError()){
+<p>Loading</p>
+} @if(!movies().length && moviesError()){
+<p>Something wrong happened</p>
+}
