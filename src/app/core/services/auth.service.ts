@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { UserRole } from '@core/enums/user-role.enum';
 import {
   JwtDecoded,
@@ -15,24 +15,60 @@ import { firstValueFrom } from 'rxjs';
 export class AuthService {
   private readonly _httpClient = inject(HttpClient);
 
-  authToken = signal<string>('');
-  role = signal<UserRole | null>(null);
+  private _authToken = signal<string>('');
+  authToken = this._authToken.asReadonly();
+  private _role = signal<UserRole | null>(null);
+  role = this._role.asReadonly();
+
+  isAdmin = computed<boolean>(() => {
+    return this.role() === UserRole.Admin;
+  });
+  isConnected = computed<boolean>(() => !!this.authToken()); // !! convertis en booléan
+  // Que fais "!!"? il transfome une valeur en booléen (exemple):
+  // on prend la valeur de this.authToken ("abc")
+  // le premier "!" inverse "abc" = false
+  // (pour rappel une chaine de texte non vide est "vrai" en JS)
+  // le deuxième "!" re-inverse le false en VRAI.
+  // donc "abc" (string) devient true (boolean)
 
   constructor() {
-    const localToken = localStorage.getItem('token');
-    if (localToken) {
-      const decoded = jwtDecode<JwtDecoded>(localToken);
+    // Effect pour sauvegarder token,
+    // mettre à jour le _role et vérifier la durée de vie du token
+    effect(() => {
+      /*
+        Cet effect est activé à chaque fois que this._authToken() change de valeur
+        Il faut penser à tout les cas:
+          - login
+          - lorsque on est connecté avec token dans le localstorage
+          - logout
+
+        Lorsqu'on "log in" et "la récupération du localstorage" -> on obtient un token
+        Lorsqu'on "log out" -> on a une chaîne de texte vide
+      */
+      const token = this._authToken();
+      if (!token) {
+        localStorage.removeItem('token');
+        this._role.set(null);
+        return;
+      }
+      localStorage.setItem('token', token);
+
+      // Décodage du token
+      // pour récuperer le userId et _role du user
+      const decoded = jwtDecode<JwtDecoded>(token);
 
       // si mon token n'est pas expiré (exp), je place dans le signal,
       // sinon je le supprime du localstorage
       if (decoded.exp && decoded.exp * 1000 > Date.now()) {
-        this.authToken.set(localToken);
-        this.role.set((decoded.role as UserRole) ?? UserRole.User);
+        this._role.set((decoded.role as UserRole) ?? UserRole.User);
       } else {
-        console.log('Remove token');
-
-        // localStorage.removeItem('token');
+        this._authToken.set('');
       }
+    });
+
+    const localToken = localStorage.getItem('token');
+    if (localToken) {
+      this._authToken.set(localToken);
     }
   }
 
@@ -45,17 +81,7 @@ export class AuthService {
       }),
     );
 
-    this.authToken.set(response.accessToken);
-    localStorage.setItem('token', response.accessToken);
-
-    // Décodage du token
-    // pour récuperer le userId et role du user
-
-    const decoded = jwtDecode<JwtDecoded>(response.accessToken);
-
-    console.log(decoded);
-
-    this.role.set((decoded.role as UserRole) ?? UserRole.User);
+    this._authToken.set(response.accessToken);
   }
 
   async register(userData: RegisterData): Promise<void> {
@@ -65,8 +91,6 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('token');
-    this.authToken.set('');
-    this.role.set(null);
+    this._authToken.set('');
   }
 }

@@ -13,7 +13,8 @@ export class NavBar {
   protected readonly UserRole = UserRole;
   private readonly _authService = inject(AuthService);
 
-  role = this._authService.role;
+  isAdmin = this._authService.isAdmin;
+  isConnected = this._authService.isConnected;
 
   onLogoutBtn() {
     this._authService.logout();

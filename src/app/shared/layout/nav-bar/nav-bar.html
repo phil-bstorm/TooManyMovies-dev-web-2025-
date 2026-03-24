@@ -1,9 +1,9 @@
 <nav>
   <ul>
     <li><a routerLink="/">Movies</a></li>
-    @if(role() === UserRole.Admin){
+    @if(isAdmin()){
     <li><a routerLink="/movie/add">new Movie</a></li>
-    } @if(!role()){
+    } @if(!isConnected()){
     <li><a routerLink="auth/login">Login</a></li>
     <li><a routerLink="auth/register">Register</a></li>
     }@else {

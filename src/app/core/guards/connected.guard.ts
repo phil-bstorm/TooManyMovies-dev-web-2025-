@@ -6,8 +6,8 @@ export const connectedGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  const role = authService.role();
-  if (role) {
+  const isConnected = authService.isConnected();
+  if (isConnected) {
     // l'utilisateur est connecté
     return true;
   }
