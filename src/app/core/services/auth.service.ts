@@ -8,12 +8,15 @@ import {
 } from '@core/models/auth.interface';
 import { jwtDecode } from 'jwt-decode';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '@env';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private readonly _httpClient = inject(HttpClient);
+
+  private readonly _apiUrl = environment.apiURL;
 
   private _authToken = signal<string>('');
   authToken = this._authToken.asReadonly();
@@ -75,7 +78,7 @@ export class AuthService {
   async login(email: string, password: string): Promise<void> {
     // appel API
     const response = await firstValueFrom(
-      this._httpClient.post<LoginResponse>('http://localhost:3000/login', {
+      this._httpClient.post<LoginResponse>(this._apiUrl + '/login', {
         email: email,
         password: password,
       }),
@@ -86,7 +89,7 @@ export class AuthService {
 
   async register(userData: RegisterData): Promise<void> {
     await firstValueFrom(
-      this._httpClient.post('http://localhost:3000/register', userData),
+      this._httpClient.post(this._apiUrl + '/register', userData),
     );
   }
 
